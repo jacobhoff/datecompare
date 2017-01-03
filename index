@@ -1,0 +1,104 @@
+@model IEnumerable<MailProcessorWEB.Models.LoggingViewModel>
+
+@{
+    ViewBag.Title = "Logging";
+}
+<link href="~/Content/vendor/datatables/media/css/dataTables.jqueryui.css" rel="stylesheet" />
+<link href="~/Content/RULE.css" rel="stylesheet" />
+<div class="panel">
+    <div class="panel-heading">
+        <h3>Error Log</h3>
+    </div>
+    <div class="panel-body">
+        <div class="dateControlBlock" style="visibility:hidden;">
+            Between <input type="text" name="dateStart" id="dateStart" class="datepicker hasDatepicker" value="" size="8">
+            <img class="ui-datepicker-trigger" src="">
+            <span class="ui-datepicker-trigger glyphicon glyphicon-calendar" style="padding-right:5px;color:#1976D2"></span> and
+            <input type="text" name="dateEnd" id="dateEnd" class="datepicker hasDatepicker" value="" size="8">
+            <img class="ui-datepicker-trigger" src="">
+            <span class="ui-datepicker-trigger glyphicon glyphicon-calendar" style="color:#1976D2"></span>
+            <input type="button" class="btn btn-primary" id="updateDate" value="Filter Dates"/>
+        </div>
+        <table id="logTable" style="visibility:hidden;">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rules.Created)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RuleName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Emails.Mailbox)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Emails.To)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Emails.From)
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.Rules.RuleExecutionLogId)
+
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Rules.RuleId)
+
+                        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.Emails.Subject)
+
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rules.TicketId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rules.Log)
+
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="temp">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rules.Created)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RuleName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Emails.Mailbox)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Rules.RuleExecutionLogId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rules.RuleId)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Emails.To)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Emails.From)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Emails.Subject)
+                        </td>
+                        <td>
+                            <a href="@string.Format("https://it.entint.com/assystweb/application.do#event%2FDisplayEvent.do%3Fdispatch%3DgetEvent%26checkJukeBoxSettings%3Dtrue%26eventId%3D{0}%26resultSet%3D",item.Rules.TicketId)" target="_blank">@Html.DisplayFor(modelItem => item.Rules.TicketId)</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rules.Log)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="~/Content/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+<script src="~/Scripts/Logging.js"></script>
